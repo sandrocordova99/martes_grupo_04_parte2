@@ -22,6 +22,11 @@ public class RoleController {
     public ResponseEntity<RolesEntity>crearRoles(@RequestBody RoleDTO roleDTO){
         return new ResponseEntity<>(roleService.createRoles(roleDTO), HttpStatus.CREATED);
     }
+    @GetMapping("/listar")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<?>listar(){
+        return new ResponseEntity<>(roleService.listarRoles(),HttpStatus.OK);
+    }
 
     @GetMapping("/saludo")
     @PreAuthorize("hasRole('ADMIN')")

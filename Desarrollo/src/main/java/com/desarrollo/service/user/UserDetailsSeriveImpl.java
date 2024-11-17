@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class UserDetailsSeriveImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -53,8 +56,13 @@ public class UserDetailsSeriveImpl implements UserDetailsService {
     public UserEntity crearUser(UserDTO userDTO){
         UserEntity userEntity = UserEntity.builder()
                 .username(userDTO.getUsername())
-                .password(userDTO.getPassword())
+                .password(new BCryptPasswordEncoder().encode(userDTO.getPassword()))
                 .isEnabled(userDTO.isEnabled())
+                .accountNoExpired(userDTO.isAccountNoExpired())
+                .accountNoLocked(userDTO.isAccountNoLocked())
+                .credentialNoExpired(userDTO.isCredentialNoExpired())
+                .dni(userDTO.getDni())
+                .email(userDTO.getEmail())
                 .rolesEntitySet(
                         userDTO.getRoles().stream()
                         .map(nombreRoles->roleRepository.findByName(RoleEnum.valueOf(nombreRoles))
@@ -64,6 +72,14 @@ public class UserDetailsSeriveImpl implements UserDetailsService {
                 .build();
 
      return userRepository.save(userEntity);
+    }
+
+    public boolean authenticate(String username, String password) {
+        UserEntity userEntity = userRepository.buscarUsuarioPorNombre(username);
+        if (userEntity == null) {
+            throw new UsernameNotFoundException("Usuario no encontrado");
+        }
+        return passwordEncoder.matches(password, userEntity.getPassword());
     }
 
 }

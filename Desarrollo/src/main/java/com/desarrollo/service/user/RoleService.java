@@ -1,6 +1,7 @@
 package com.desarrollo.service.user;
 
 import com.desarrollo.dto.user.RoleDTO;
+import com.desarrollo.model.PermisoEntity;
 import com.desarrollo.model.RoleEnum;
 import com.desarrollo.model.RolesEntity;
 import com.desarrollo.repository.userRepository.PermisoRepository;
@@ -8,6 +9,8 @@ import com.desarrollo.repository.userRepository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,4 +31,19 @@ public class RoleService {
         return roleRepository.save(rolesEntity);
     }
 
+    public List<RoleDTO> listarRoles(){
+        List<RolesEntity> lista = roleRepository.findAll();
+        return lista.stream().map(roleEnty->{
+            RoleDTO role = new RoleDTO();
+            role.setIdRoles(roleEnty.getIdRoles());
+            role.setName(roleEnty.getName().name());
+            role.setPermissions(
+                    roleEnty.getPermisoEntities()
+                            .stream()
+                            .map(PermisoEntity::getName)
+                            .collect(Collectors.toSet())
+            );
+            return role;
+        }).collect(Collectors.toList());
+    }
 }
