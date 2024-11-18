@@ -21,6 +21,16 @@ public class AuthController {
     @PreAuthorize("permitAll()")
     public ResponseEntity<String> register(@RequestBody UserDTO userDTO) {
         try {
+            // Validación para el DNI
+            if (authService.isDniRegistered((userDTO.getDni()))) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body("Error: El DNI ya está registrado");
+            }
+            // Validación para el email
+            if (authService.isEmailRegistered(userDTO.getEmail())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body("Error: El email ya está registrado");
+            }
             authService.crearUser(userDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body("Usuario registrado exitosamente");
         } catch (Exception e) {
