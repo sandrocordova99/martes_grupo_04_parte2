@@ -18,6 +18,7 @@ import java.util.Map;
 public class AuthController {
 
     private final UserDetailsSeriveImpl authService;
+
     @PostMapping("/registar")
     @PreAuthorize("permitAll()")
     public ResponseEntity<String> register(@RequestBody UserDTO userDTO) {
