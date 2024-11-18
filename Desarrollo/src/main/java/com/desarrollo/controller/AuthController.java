@@ -6,14 +6,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/auth/")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
 
     private final UserDetailsSeriveImpl authService;
@@ -33,16 +34,21 @@ public class AuthController {
      */
     @PostMapping("/login")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<String> login(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody UserDTO userDTO) {
         try {
             boolean auth = authService.authenticate(userDTO.getUsername(), userDTO.getPassword());
+            Map<String, String> response = new HashMap<>();
             if(auth){
-                return ResponseEntity.status(HttpStatus.ACCEPTED).body("Bienvenido" + userDTO.getUsername());
+                response.put("message","Bienvenido" + userDTO.getUsername());
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
             }else{
-                return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error en usuario o contraseña" + userDTO.getUsername());
+                response.put("message","Error en usuario o contraseña" );
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error en la autenticación: " + e.getMessage());
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Error en la autenticación: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
 
     }

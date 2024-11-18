@@ -26,6 +26,9 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(csrf->csrf.disable())
                 .httpBasic(Customizer.withDefaults())
+                .formLogin(login -> {
+                    login.loginPage("//loginComponent");
+                })
                 .sessionManagement(sesion->sesion.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
     }

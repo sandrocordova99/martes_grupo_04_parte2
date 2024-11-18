@@ -19,6 +19,7 @@ public class UserEntity {
 
     @Column(name = "user_name",unique = true)
     private String username;
+
     private String password;
 
     @Column(name = "is_enabled")

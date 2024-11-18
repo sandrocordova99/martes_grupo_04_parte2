@@ -38,6 +38,7 @@ public class DesarrolloApplication {
 			PermisoEntity deletePermission = PermisoEntity.builder()
 					.name("DELETE")
 					.build();
+
 			//crear Rol de admin
 			RolesEntity roleAdmin = RolesEntity.builder()
 					.name(RoleEnum.ADMIN)
@@ -46,7 +47,10 @@ public class DesarrolloApplication {
 
 			UserEntity admin = UserEntity.builder()
 					.username("admin")
-					.password("1234")
+					.password("$2a$12$xVLjCPQMKqfCCeMUlxCDE.77hvdFLsjk3AHFWCsTqq5C/o0dwWsmG") //1234
+					.nombreCliente("Sandro Cordova")
+					.dni("06204810")
+					.email("sandro@gmail.com")
 					.isEnabled(true)
 					.accountNoExpired(true)
 					.accountNoLocked(true)
