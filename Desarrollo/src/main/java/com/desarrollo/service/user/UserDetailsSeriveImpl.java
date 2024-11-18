@@ -52,6 +52,16 @@ public class UserDetailsSeriveImpl implements UserDetailsService {
         ,userEntity.isAccountNoLocked(),authorityList);
     }
 
+    // Método para verificar si un DNI ya está registrado
+    public boolean isDniRegistered(String dni) {
+        return userRepository.existsByDni(dni);
+    }
+
+    // Método para verificar si un email ya está registrado
+    public boolean isEmailRegistered(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
     //crear usuario
     public UserEntity crearUser(UserDTO userDTO){
         UserEntity userEntity = UserEntity.builder()
