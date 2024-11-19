@@ -1,1 +1,38 @@
-<p>registrar works!</p>
+<div>
+    <h2>Registrar Usuario</h2>
+    <form (ngSubmit)="registrarUsuario()">
+
+        <div>
+            <label>Username</label>
+            <input type="text" id="Username" name="Username" [(ngModel)]="userDTO.username" required />
+        </div>
+
+        <div>
+            <label>password</label>
+            <input type="password" id="password" name="password" [(ngModel)]="userDTO.password" required />
+        </div>
+
+        <div>
+            <label>nombre Cliente</label>
+            <input type="text" id="nombreCliente" name="nombreCliente" [(ngModel)]="userDTO.nombreCliente" required />
+        </div>
+
+        <div>
+            <label>DNI</label>
+            <input type="number" id="DNI" name="DNI" [(ngModel)]="userDTO.dni" required />
+        </div>
+
+        <div>
+            <label>email</label>
+            <input id="email" name="email" [(ngModel)]="userDTO.email" required />
+        </div>
+
+        <button type="submit">Ingresar</button>
+    </form>
+
+    <div *ngIf="mensaje" >
+        {{ mensaje }}
+    </div>
+
+
+</div>

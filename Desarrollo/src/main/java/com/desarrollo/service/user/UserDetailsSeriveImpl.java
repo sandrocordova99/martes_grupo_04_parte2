@@ -67,6 +67,7 @@ public class UserDetailsSeriveImpl implements UserDetailsService {
         UserEntity userEntity = UserEntity.builder()
                 .username(userDTO.getUsername())
                 .password(new BCryptPasswordEncoder().encode(userDTO.getPassword()))
+                .nombreCliente(userDTO.getNombreCliente())
                 .isEnabled(userDTO.isEnabled())
                 .accountNoExpired(userDTO.isAccountNoExpired())
                 .accountNoLocked(userDTO.isAccountNoLocked())

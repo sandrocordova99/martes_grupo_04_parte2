@@ -33,8 +33,10 @@ public class UserEntity {
 
     @Column(name = "credential_no_expired")
     private boolean credentialNoExpired;
+
     @Column(name = "nombre_cliente",nullable = false)
     private String nombreCliente;
+
     @Column(name = "dni",nullable = false,length = 8,unique = true)
     private String dni;
     @Column(name = "email",nullable = false,length = 100,unique = true)

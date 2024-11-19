@@ -16,4 +16,9 @@ export class UsuarioService {
     return this.http.post<any>(this.url + "/login" , usuario);
   }
 
+  registrarUsuario(usuario:UserDTO): Observable<any>{
+    console.log('Datos a enviar:', usuario);
+    return this.http.post<any>(this.url + "/registar", usuario);
+  }
+
 }
