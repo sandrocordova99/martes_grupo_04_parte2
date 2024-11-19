@@ -25,6 +25,14 @@ public class AuthController {
         System.out.println("DTO recibido: " + userDTO);
         Map<String, String> response = new HashMap<>();
         try {
+
+            //Validación del username
+            if (authService.isUsernameRegistered(userDTO.getUsername())) {
+                response.put("message","El username ya está registrado");
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body(response);
+            }
+
             // Validación para el DNI
             if (authService.isDniRegistered((userDTO.getDni()))) {
                 response.put("message","Error:El DNI ya está registrado");
@@ -37,6 +45,7 @@ public class AuthController {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body(response);
             }
+
             authService.crearUser(userDTO);
             response.put("message","Usuario registrado exitosamente");
             return ResponseEntity.status(HttpStatus.CREATED).body(response);

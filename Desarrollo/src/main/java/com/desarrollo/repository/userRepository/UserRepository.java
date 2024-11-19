@@ -11,6 +11,10 @@ public interface UserRepository extends JpaRepository<UserEntity,Long> {
     @Query("SELECT u FROM UserEntity u WHERE u.username =?1")
    UserEntity buscarUsuarioPorNombre(String nombre);
 
+   //Validar username
+   @Query("SELECT COUNT(u) > 0 FROM UserEntity u WHERE u.username = :username")
+   boolean existsByUsername(@Param("username") String username);
+
    // Validad DNI
    @Query("SELECT COUNT(u) > 0 FROM UserEntity u WHERE u.dni = :dni")
    boolean existsByDni(@Param("dni") String dni);
@@ -18,4 +22,6 @@ public interface UserRepository extends JpaRepository<UserEntity,Long> {
    // Validar email
    @Query("SELECT COUNT(u) > 0 FROM UserEntity u WHERE u.email = :email")
    boolean existsByEmail(@Param("email") String email);
+
+
 }
