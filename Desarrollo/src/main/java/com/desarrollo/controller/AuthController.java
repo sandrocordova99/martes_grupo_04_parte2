@@ -21,23 +21,32 @@ public class AuthController {
 
     @PostMapping("/registar")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<String> register(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<Map<String, ?>> register(@RequestBody UserDTO userDTO) {
+        System.out.println("DTO recibido: " + userDTO);
+        Map<String, String> response = new HashMap<>();
         try {
             // Validación para el DNI
             if (authService.isDniRegistered((userDTO.getDni()))) {
+                response.put("message","Error:El DNI ya está registrado");
                 return ResponseEntity.status(HttpStatus.CONFLICT)
-                        .body("Error: El DNI ya está registrado");
+                        .body(response);
             }
             // Validación para el email
             if (authService.isEmailRegistered(userDTO.getEmail())) {
+                response.put("message","El email ya está registrado");
                 return ResponseEntity.status(HttpStatus.CONFLICT)
-                        .body("Error: El email ya está registrado");
+                        .body(response);
             }
             authService.crearUser(userDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Usuario registrado exitosamente");
+            response.put("message","Usuario registrado exitosamente");
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al registrar el usuario: " + e.getMessage());
+            response.put("message","Error al registrar el usuario");
+            response.put("value" , e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
+
+
     }
 
     /**
