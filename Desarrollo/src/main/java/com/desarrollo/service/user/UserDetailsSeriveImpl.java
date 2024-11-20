@@ -52,6 +52,9 @@ public class UserDetailsSeriveImpl implements UserDetailsService {
         ,userEntity.isAccountNoLocked(),authorityList);
     }
 
+    //Método para verificar si un username ya está registrado
+    public boolean isUsernameRegistered(String username) { return userRepository.existsByUsername(username); }
+
     // Método para verificar si un DNI ya está registrado
     public boolean isDniRegistered(String dni) {
         return userRepository.existsByDni(dni);
@@ -61,6 +64,7 @@ public class UserDetailsSeriveImpl implements UserDetailsService {
     public boolean isEmailRegistered(String email) {
         return userRepository.existsByEmail(email);
     }
+
 
     //crear usuario
     public UserEntity crearUser(UserDTO userDTO){
