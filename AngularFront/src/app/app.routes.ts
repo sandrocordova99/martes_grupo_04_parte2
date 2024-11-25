@@ -7,7 +7,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { IndexComponent } from './componentens/usuario/index/index.component';
 
 export const routes: Routes = [
-    {path: '' , redirectTo:'LoginUsuario' , pathMatch:'full'},
+    //{path: '' , redirectTo:'LoginUsuario' , pathMatch:'full'},
     {path: 'LoginUsuario' ,   component:LoginComponent},
     {path: 'RegistrarUsuario' ,   component:RegistrarComponent },
     {path: 'index' ,   component:IndexComponent , canActivate: [AuthGuard]}

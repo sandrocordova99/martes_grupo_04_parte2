@@ -40,7 +40,8 @@ export class LoginComponent {
           this.router.navigate(['/index'])
         } ,
         error: (err) => {
-          console.error('Error en el login', err);
+          this.mensajeError = err.error.message;
+          console.log(this.mensajeError);
         }
       }
     )
