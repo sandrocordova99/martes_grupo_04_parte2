@@ -51,16 +51,21 @@
         </div>
 
         <div>
-            <label>email</label>
-            <input id="email" name="email" 
-            [(ngModel)]="userDTO.email" required 
-            #email = "ngModel"
-            pattern="^[a-zA-Z0-9._%+-]+@(gmail|hotmail|outlook)\.com$"
+            <label>Email</label>
+            <input
+                id="email"
+                name="email"
+                [(ngModel)]="userDTO.email"
+                required
+                #email="ngModel"
+                pattern="^[a-zA-Z0-9._%+-]+@(gmail|hotmail|outlook)\.com$"
             />
-            <div *ngIf="email.touched && dni.invalid">
-                <small *ngIf="email.errors?.['pattern']">el email debe tener la terminacion correcta</small>
+            <div *ngIf="email.touched && email.invalid">
+                <small *ngIf="email.errors?.['pattern']">El email debe tener la terminación correcta (gmail, hotmail, outlook).</small>
+                <small *ngIf="email.errors?.['required']">El email es obligatorio.</small>
             </div>
         </div>
+        
 
         <button type="submit">Ingresar</button>
     </form>
