@@ -64,7 +64,11 @@ export class ListarProyectosComponent implements OnInit {
   }
 
 
-
+  agregarTarea(proyectoDTO : ProyectoDTO):void{
+    console.log("Id del proyecto seleccionado: ",proyectoDTO.id);
+    localStorage.setItem("idProyecto",proyectoDTO.id.toString());
+    this.router.navigate(['/agregarTarea']);
+  }
 
 
 

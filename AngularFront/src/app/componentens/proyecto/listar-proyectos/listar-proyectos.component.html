@@ -6,9 +6,9 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>usuarios</th>
-                <th>tareas</th>
-                <th>colorId</th>
+                <th>Tareas</th>
+                <th>Usuarios</th>
+                <th>Color</th>
                 <th>Opciones</th>
             </tr>
         </thead>
@@ -19,8 +19,11 @@
                 
                 
                 <td>
-                    <ul>
-                        <li *ngFor="let t of p.tareas">{{ t.nombre }}</li>
+                    <ul *ngFor="let t of p.tareas">
+                        <li>{{ t.nombre }}</li>
+                        <li>{{ t.fechaVencimiento }}</li>
+                        <li>{{ t.prioridad }}</li>
+                        <li>{{ t.proyectoId }}</li>
                     </ul>
                 </td>
                
@@ -39,8 +42,8 @@
                 
             
                 <td>
-                    <button >Agregar Tarea</button>
-                    <button >eliminar</button>
+                    <button (click)="agregarTarea(p)">Agregar Tarea</button>
+                    <button >Delete</button>
                 </td>
             </tr>
         </tbody>
