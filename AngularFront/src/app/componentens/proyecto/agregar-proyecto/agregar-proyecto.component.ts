@@ -17,6 +17,7 @@ import { error } from 'console';
 export class AgregarProyectoComponent implements OnInit {
 
   constructor(private proyectoService: ProyectoService, private router: Router) { }
+  
   username: string | null = null;
 
   ngOnInit(): void {

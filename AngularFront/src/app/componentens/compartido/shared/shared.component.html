@@ -1,9 +1,15 @@
 <header>
     <nav>
+      
         <ul>
-            <a routerLink="/index" routerLinkActive="active">Inicio</a>
+            <li><a routerLink="/index" routerLinkActive="active">Inicio</a></li>
             <li><a routerLink="/RegistrarUsuario" routerLinkActive="active">Registrar Usuario</a></li>
+            <li><a routerLink="/listarProyecto" routerLinkActive="active">Listar Proyectos</a></li>
             <li><button (click)="logout()">Logout</button></li>
         </ul>
     </nav>
 </header>
+<main>
+    <!-- Aquí se renderizarán los componentes -->
+    <router-outlet></router-outlet>
+</main>
