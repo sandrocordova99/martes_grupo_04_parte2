@@ -1,0 +1,45 @@
+<div>
+    <h1>Lista de Alumnos</h1>
+    <button>crear Proyecto</button>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>usuarios</th>
+                <th>tareas</th>
+                <th>colorId</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of proyectoDTO">
+                <td>{{ p.id }}</td>
+                <td>{{ p.nombre }}</td>
+                
+                
+                <td>
+                    <ul>
+                        <li *ngFor="let t of p.tareas">{{ t.nombre }}</li>
+                    </ul>
+                </td>
+               
+                
+                 <td>
+                    <ul>
+                        <li *ngFor="let u of p.usuarios" >{{ u.username }}</li>
+                    </ul>
+                </td>
+               
+               
+                <td>{{ p.colorId }}</td>
+                
+            
+                <td>
+                    <button >editar</button>
+                    <button >eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- <router-outlet></router-outlet>-->

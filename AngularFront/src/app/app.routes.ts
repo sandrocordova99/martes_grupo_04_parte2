@@ -5,10 +5,13 @@ import { RegistrarComponent } from './componentens/usuario/registrar/registrar.c
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
 import { IndexComponent } from './componentens/usuario/index/index.component';
+import { ListarProyectosComponent } from './componentens/proyecto/listar-proyectos/listar-proyectos.component';
+import { AgregarTareaComponent } from './componentens/proyecto/agregar-tarea/agregar-tarea.component';
 
 export const routes: Routes = [
-    //{path: '' , redirectTo:'LoginUsuario' , pathMatch:'full'},
     {path: 'LoginUsuario' ,   component:LoginComponent},
     {path: 'RegistrarUsuario' ,   component:RegistrarComponent },
+    {path: 'listarProyecto' ,   component:ListarProyectosComponent , canActivate: [AuthGuard]},
+    {path: 'agregarTarea' ,   component:AgregarTareaComponent , canActivate: [AuthGuard]},
     {path: 'index' ,   component:IndexComponent , canActivate: [AuthGuard]}
 ];
