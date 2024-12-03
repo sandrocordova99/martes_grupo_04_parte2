@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { ProyectoService } from '../../../servicio/proyecto.service';
 import { ProyectoDTO } from '../../../modelos/ProyectoDTO';
+import { ColorEnum, getColorName } from '../../../modelos/ts';
 @Component({
   selector: 'app-listar-proyectos',
   standalone: true,
@@ -11,17 +12,30 @@ import { ProyectoDTO } from '../../../modelos/ProyectoDTO';
   templateUrl: './listar-proyectos.component.html',
   styleUrl: './listar-proyectos.component.css'
 })
-export class ListarProyectosComponent implements OnInit{
+export class ListarProyectosComponent implements OnInit {
 
-  constructor(private proyectoService: ProyectoService , private router: Router){}
+
+  constructor(private proyectoService: ProyectoService, private router: Router) { }
 
   proyectoDTO?: ProyectoDTO[] = [];
+  ColorEnum = ColorEnum;
 
-  ngOnInit():void{
+  // Mapa de colores CSS
+  colorMap: { [key: number]: string } = {
+    [ColorEnum.ROJO]: 'red',
+    [ColorEnum.VERDE]: 'green',
+    [ColorEnum.AMARILLO]: 'yellow',
+    [ColorEnum.AZUL]: 'blue',
+    [ColorEnum.CELESTE]: 'lightblue',
+    [ColorEnum.TURQUESA]: 'turquoise',
+  };
+
+  ngOnInit(): void {
     this.obtenerProyectos();
   }
 
- 
+
+
   obtenerProyectos(): void {
     this.proyectoService.listarProyecto().subscribe(
       (data: any) => {
@@ -31,6 +45,7 @@ export class ListarProyectosComponent implements OnInit{
             ...proyecto,
             usuarios: Array.from(proyecto.usuarios || []),
             tareas: Array.from(proyecto.tareas || []),
+            // color: getColorName(proyecto.colorId)
           }));
           console.log('Datos procesados:', this.proyectoDTO);
         } else {
@@ -43,6 +58,10 @@ export class ListarProyectosComponent implements OnInit{
     );
   }
 
+  crearProyecto(): void {
+    console.log("Creando un nuevo Proyecto");
+    this.router.navigate(['/agregarProyecto']);
+  }
 
 
 

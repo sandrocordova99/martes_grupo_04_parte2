@@ -1,6 +1,6 @@
 <div>
     <h1>Lista de Alumnos</h1>
-    <button>crear Proyecto</button>
+    <button (click)="crearProyecto()">crear Proyecto</button>
     <table>
         <thead>
             <tr>
@@ -9,6 +9,7 @@
                 <th>usuarios</th>
                 <th>tareas</th>
                 <th>colorId</th>
+                <th>Opciones</th>
             </tr>
         </thead>
         <tbody>
@@ -30,12 +31,15 @@
                     </ul>
                 </td>
                
-               
-                <td>{{ p.colorId }}</td>
+                <td>
+                    <span [ngStyle]="{'color': colorMap[p.colorId]}">
+                      {{ ColorEnum[p.colorId] }}
+                    </span>
+                  </td>
                 
             
                 <td>
-                    <button >editar</button>
+                    <button >Agregar Tarea</button>
                     <button >eliminar</button>
                 </td>
             </tr>
