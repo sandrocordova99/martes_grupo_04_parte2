@@ -5,6 +5,7 @@ import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { ProyectoService } from '../../../servicio/proyecto.service';
 import { ProyectoDTO } from '../../../modelos/ProyectoDTO';
 import { ColorEnum, getColorName } from '../../../modelos/ts';
+import { ProyectoResponseDTO } from '../../../modelos/ProyectoResponseDTO';
 @Component({
   selector: 'app-listar-proyectos',
   standalone: true,
@@ -14,10 +15,20 @@ import { ColorEnum, getColorName } from '../../../modelos/ts';
 })
 export class ListarProyectosComponent implements OnInit {
 
+  ngOnInit(): void {
+    this.obtenerProyectos();
+  }
 
-  constructor(private proyectoService: ProyectoService, private router: Router) { }
+  idUsuario: number ;
+ 
+  proyectos: ProyectoResponseDTO[] = []
 
-  proyectoDTO?: ProyectoDTO[] = [];
+  constructor(private proyectoService: ProyectoService, private router: Router) {
+    
+    const user = localStorage.getItem("user");
+    this.idUsuario = Number(user);
+   
+  }
   ColorEnum = ColorEnum;
 
   // Mapa de colores CSS
@@ -30,50 +41,30 @@ export class ListarProyectosComponent implements OnInit {
     [ColorEnum.TURQUESA]: 'turquoise',
   };
 
-  ngOnInit(): void {
-    this.obtenerProyectos();
-  }
-
-
 
   obtenerProyectos(): void {
-    this.proyectoService.listarProyecto().subscribe(
-      (data: any) => {
-        // Verificamos si el objeto tiene la propiedad 'lista'
-        if (data.lista && Array.isArray(data.lista)) {
-          this.proyectoDTO = data.lista.map((proyecto: ProyectoDTO) => ({
-            ...proyecto,
-            usuarios: Array.from(proyecto.usuarios || []),
-            tareas: Array.from(proyecto.tareas || []),
-            // color: getColorName(proyecto.colorId)
-          }));
-          console.log('Datos procesados:', this.proyectoDTO);
-        } else {
-          console.error('Estructura inesperada de datos:', data);
+    if (this.idUsuario > 0) {
+      this.proyectoService.listarProyectos(this.idUsuario).subscribe(
+        (data) => {
+          console.log("Proyectos recibidos: ", data);
+          this.proyectos = data.proyecto;
+          
+        },
+        (error) => {
+          console.error("Error al obtener proyectos: ", error);
         }
-      },
-      (error) => {
-        console.error('Error al recibir datos:', error);
-      }
-    );
+      );
+    } else {
+      console.error("ID de usuario no válido. No se pueden obtener proyectos.");
+    }
   }
+}
 
-  crearProyecto(): void {
-    console.log("Creando un nuevo Proyecto");
-    this.router.navigate(['/agregarProyecto']);
-  }
-
-
-  agregarTarea(proyectoDTO : ProyectoDTO):void{
-    console.log("Id del proyecto seleccionado: ",proyectoDTO.id);
-    localStorage.setItem("idProyecto",proyectoDTO.id.toString());
-    this.router.navigate(['/agregarTarea']);
-  }
 
 
 
 
   //final
-}
+
 
 

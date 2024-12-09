@@ -36,10 +36,13 @@ export class LoginComponent {
     this.usuarioServicio.loginUsuario(this.userDTO).subscribe(
       {
         next: (response) => {
-          const username = response.usuario; // Accede a 'usuario' desde la respuesta
+          const username = response.usuarioId; 
           if (username) {
-            // Guarda en localStorage con la clave 'usuario' para ser consistente
-            localStorage.setItem('user', JSON.stringify({ usuario: username }));
+            const userIdString = username;
+            const userId = Number(userIdString);
+            localStorage.setItem('user', userId.toString());
+        
+            console.log(localStorage.getItem("user"));
             this.router.navigate(['/index']);
           } else {
             console.error('No se pudo obtener el usuario desde la respuesta del servidor.');

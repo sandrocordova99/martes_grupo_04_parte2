@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, RouterOutlet ,Router} from '@angular/router';
+import { Init } from 'v8';
 
 @Component({
   selector: 'app-index',
@@ -10,14 +11,22 @@ import { RouterModule, RouterOutlet ,Router} from '@angular/router';
   templateUrl: './index.component.html',
   styleUrl: './index.component.css'
 })
-export class IndexComponent {
+export class IndexComponent implements OnInit{
 
   constructor(private router : Router){}
+
+  
+  ngOnInit(): void {
+    const mensaje = JSON.stringify(localStorage.getItem("user"));
+    console.log(mensaje);
+  }
 
 
   logout():void {
     localStorage.removeItem('user');
     this.router.navigate(['/LoginUsuario']);
   }
+
+
 
 }
