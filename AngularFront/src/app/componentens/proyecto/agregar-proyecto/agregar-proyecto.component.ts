@@ -6,6 +6,7 @@ import { ProyectoDTO } from '../../../modelos/ProyectoDTO';
 import { UserDTO } from '../../../modelos/UserDTO';
 import { ProyectoService } from '../../../servicio/proyecto.service';
 import { error } from 'console';
+import { ProyectoRequestDTO } from '../../../modelos/ProyectoRequestDTO';
 
 @Component({
   selector: 'app-agregar-proyecto',
@@ -16,67 +17,43 @@ import { error } from 'console';
 })
 export class AgregarProyectoComponent implements OnInit {
 
-  constructor(private proyectoService: ProyectoService, private router: Router) { }
+  idUsuario : number;
+  mensaje = " ";
   
-  username: string | null = null;
+  constructor(private proyectoService: ProyectoService, private router: Router) {
+    const user = localStorage.getItem("user");
+    this.idUsuario = Number(user);
+   }
+  
+  
 
   ngOnInit(): void {
-    this.username = localStorage.getItem('user');
+    
   }
 
-
-
-  nuevoProyecto: ProyectoDTO = {
-    id: 0,
+  proyectoNuevo : ProyectoRequestDTO = {
     nombre: '',
-    usuarios: [], //se inicializa con el user de turno y es DTO
-    tareas: [],
-    colorId: 1
+    colorId: 1,
+    usuarioIds: []
   }
 
-  guardar(): void {
-    const userLogeado = localStorage.getItem('user');
-    if (userLogeado) {
-      try {
-        const usuario = JSON.parse(userLogeado) as { usuario: string };
-        
-        if (usuario.usuario) {
-          const userDTO: UserDTO = {
-            username: usuario.usuario, // Usa el atributo correcto
-            password: '',
-            isEnabled: false,
-            accountNoExpired: false,
-            accountNoLocked: false,
-            credentialNoExpired: false,
-            nombreCliente: '',
-            dni: '',
-            email: '',
-            roles: []
-          };
-          // Agrega el usuario al proyecto
-          this.nuevoProyecto.usuarios.push(userDTO);
-          console.log('Usuario agregado al proyecto:', userDTO);
-        } else {
-          console.error('El username no está disponible en localStorage.');
-        }
-      } catch (error) {
-        console.error('Error al parsear el JSON de localStorage:', error);
-      }
-    } else {
-      console.error('No hay información de usuario en localStorage.');
-    }
-  
-      this.proyectoService.agregarProyecto(this.nuevoProyecto).subscribe(
-      () => {
-        this.router.navigate(['/listarProyecto']);
-        console.log('Usuario:: ', localStorage.getItem('user'));
+  guardar():void{
+    this.proyectoService.crearProyecto(this.proyectoNuevo,this.idUsuario).subscribe(
+      data => {
+          console.log(data.proyecto);
+          this.mensaje  = data.message;
       },
       error => {
-        console.log("El error es: ", error);
+        console.log(error);
+        this.mensaje = error.error?.message
       }
     )
-
   }
+
+  
+
+
+ 
 
   
 

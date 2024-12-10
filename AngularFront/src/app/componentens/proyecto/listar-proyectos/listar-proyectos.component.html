@@ -1,6 +1,6 @@
 <div>
     <h1>Lista de Alumnos</h1>
-    <button>crear Proyecto</button>
+    <button (click)="crearProyectos()">crear Proyecto</button>
     <table>
         <thead>
             <tr>
@@ -22,7 +22,7 @@
                     </ul>
                 </td>
                 <td>
-                    <button>Editar Proyecto</button>
+                    <button (click)="actualizarProyecto(p)">Editar Proyecto</button>
                     <button>Delete Proyecto</button>
                 </td>
             </tr>
@@ -30,5 +30,3 @@
     </table>
 </div>
 <!-- <router-outlet></router-outlet>-->
- <!-- <router-outlet></router-outlet>-->
-  <!-- <router-outlet></router-outlet>-->

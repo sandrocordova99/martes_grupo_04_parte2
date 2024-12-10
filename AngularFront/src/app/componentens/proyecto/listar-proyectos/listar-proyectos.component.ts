@@ -58,13 +58,21 @@ export class ListarProyectosComponent implements OnInit {
       console.error("ID de usuario no válido. No se pueden obtener proyectos.");
     }
   }
+
+
+  crearProyectos():void{
+    this.router.navigate(['/agregarProyecto']);
+  }
+
+  actualizarProyecto(proyectos : ProyectoResponseDTO):void{
+    this.router.navigate(['/editarProyecto']);
+    localStorage.setItem("proyectoId",proyectos.id.toString());
+    
+  }
+
+
 }
-
-
-
-
-
-  //final
+//final
 
 
 

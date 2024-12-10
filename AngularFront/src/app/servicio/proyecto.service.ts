@@ -30,14 +30,10 @@ export class ProyectoService {
 
 
   /**------Nuevos metodos------- */
-crearProyecto(proyectoDTO : ProyectoRequestDTO , userE : UserEntity): Observable<any>{
+crearProyecto(proyectoDTO : ProyectoRequestDTO , userE : number): Observable<any>{
   
-  const requestBody = {
-    proyecto: proyectoDTO,
-    usuario: userE 
-  };
-
-  return this.http.post<any>(this.url + "/crearProyecto", requestBody);
+  const url = `${this.url}/crearProyecto?userId=${userE}`;
+  return this.http.post<any>(url , proyectoDTO);
 }
 
 

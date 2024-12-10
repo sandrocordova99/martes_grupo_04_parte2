@@ -1,15 +1,14 @@
 <div>
     <form>
        
-
         <div>
             <label>nombre:</label>
-            <input type="text" [(ngModel)]="nuevoProyecto.nombre" name="nombre" required="">
+            <input type="text" [(ngModel)]="proyectoNuevo.nombre" name="nombre" required="">
         </div>
 
         <div>
             <label>Colores:</label>
-            <select [(ngModel)]="nuevoProyecto.colorId" name="colorId">
+            <select [(ngModel)]="proyectoNuevo.colorId" name="colorId">
                 <option value="" disabled selected>Seleccione un Color:</option>
                 <option value="1">ROJO</option>
                 <option value="2">VERDE</option>
@@ -22,6 +21,6 @@
 
         <button (click)="guardar()">guardar</button>
 
-
+        <p>{{mensaje}}</p>
     </form>
 </div>
