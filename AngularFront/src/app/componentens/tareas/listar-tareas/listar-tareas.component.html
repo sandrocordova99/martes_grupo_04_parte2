@@ -1,1 +1,30 @@
-<p>listar-tareas works!</p>
+<div>
+    <h1>Lista de Tareas</h1>
+    <button (click)="crearTarea()">crear Proyecto</button>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Fecha Vencimiento</th>
+                <th>prioridad</th>
+                <th>Nombre de Proyecto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let t of tareasLista">
+                <td>{{ t.id }}</td>
+                <td>{{ t.nombre }}</td>
+                <td>{{t.fechaVencimiento}}</td>
+                <td>{{t.prioridad}}</td>
+                <td>{{t.proyectoNombre}}</td>
+                <td>
+                    <button (click)="actualizarTarea(t)">Editar Proyecto</button>
+                    <button (click)="eliminarTarea(t)">Delete Proyecto</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- <router-outlet></router-outlet>-->

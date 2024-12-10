@@ -54,8 +54,10 @@ export class EditarProyectoComponent implements OnInit {
     this.proyectoService.obtenerProyectoPorId(this.idUsuario, this.id).subscribe(
       proyecto => {
         this.proyectos = proyecto;
+        this.message = proyecto.message;
       }, error => {
-        console.log("error: ", error)
+          console.log("error: ", error)
+          this.message = error.error?.message;
       }
     )
 

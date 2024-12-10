@@ -19,15 +19,15 @@ export class ListarProyectosComponent implements OnInit {
     this.obtenerProyectos();
   }
 
-  idUsuario: number ;
- 
+  idUsuario: number;
+  mensaje = " ";
   proyectos: ProyectoResponseDTO[] = []
 
   constructor(private proyectoService: ProyectoService, private router: Router) {
-    
+
     const user = localStorage.getItem("user");
     this.idUsuario = Number(user);
-   
+
   }
   ColorEnum = ColorEnum;
 
@@ -48,7 +48,7 @@ export class ListarProyectosComponent implements OnInit {
         (data) => {
           console.log("Proyectos recibidos: ", data);
           this.proyectos = data.proyecto;
-          
+
         },
         (error) => {
           console.error("Error al obtener proyectos: ", error);
@@ -60,18 +60,30 @@ export class ListarProyectosComponent implements OnInit {
   }
 
 
-  crearProyectos():void{
+  crearProyectos(): void {
     this.router.navigate(['/agregarProyecto']);
   }
 
-  actualizarProyecto(proyectos : ProyectoResponseDTO):void{
+  actualizarProyecto(proyectos: ProyectoResponseDTO): void {
     this.router.navigate(['/editarProyecto']);
-    localStorage.setItem("proyectoId",proyectos.id.toString());
-    
+    localStorage.setItem("proyectoId", proyectos.id.toString());
+
   }
 
-
+  eliminarProyecto(proyectos: ProyectoResponseDTO): void {
+    this.proyectoService.eliminarProyecto(proyectos.id, this.idUsuario).subscribe(
+        data => {
+            this.mensaje = data.message;
+        },
+        error => {
+            console.log("Error es: " , error);
+        }
+    )
+  }
 }
+
+
+
 //final
 
 

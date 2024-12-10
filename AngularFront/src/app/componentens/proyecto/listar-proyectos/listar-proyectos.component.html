@@ -1,5 +1,8 @@
 <div>
     <h1>Lista de Alumnos</h1>
+    <h1 *ngIf="mensaje">
+        {{mensaje}}
+    </h1>
     <button (click)="crearProyectos()">crear Proyecto</button>
     <table>
         <thead>
@@ -23,10 +26,11 @@
                 </td>
                 <td>
                     <button (click)="actualizarProyecto(p)">Editar Proyecto</button>
-                    <button>Delete Proyecto</button>
+                    <button (click)="eliminarProyecto(p)">Delete Proyecto</button>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
+
 <!-- <router-outlet></router-outlet>-->
