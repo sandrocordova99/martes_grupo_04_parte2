@@ -17,7 +17,7 @@ export class TareasService {
 
   crearTareas(tareaRequest: TareaRequestDTO, userId: number): Observable<any> {
     /**mandar infor por la URL mediante RequestParam */
-    const urlCrear = `${this.url}/crearProyecto?userId=${userId}`
+    const urlCrear = `${this.url}/crearTarea?userId=${userId}`
     return this.http.post<any>(urlCrear, tareaRequest);
   }
 
@@ -39,7 +39,7 @@ export class TareasService {
 
   eliminarTareas(userId: number , id : number): Observable<any> {
     const urlEliminar = `${this.url}/borrarTarea/${id}?userId=${userId}`
-    return this.http.get<any>(urlEliminar);
+    return this.http.delete<any>(urlEliminar);
   }
 
 

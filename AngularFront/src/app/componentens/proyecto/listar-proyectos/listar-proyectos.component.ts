@@ -62,6 +62,13 @@ export class ListarProyectosComponent implements OnInit {
 
   crearProyectos(): void {
     this.router.navigate(['/agregarProyecto']);
+    
+  }
+
+  crearTareas(proyectos: ProyectoResponseDTO): void {
+    this.router.navigate(['/agregarTareas']);
+    localStorage.setItem("proyectoId", proyectos.id.toString());
+
   }
 
   actualizarProyecto(proyectos: ProyectoResponseDTO): void {

@@ -5,8 +5,11 @@
     private Long proyectoId;
     private String estado ; */
 export interface TareaRequestDTO{
+    nombre : string,
     fechaVencimiento : Date,
     prioridad : string,
     proyectoId : number,
     estado : string
+
+
 }

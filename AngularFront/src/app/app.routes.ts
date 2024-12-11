@@ -11,16 +11,19 @@ import { AgregarProyectoComponent } from './componentens/proyecto/agregar-proyec
 import { EditarProyectoComponent } from './componentens/proyecto/editar-proyecto/editar-proyecto.component';
 import { ListarTareasComponent } from './componentens/tareas/listar-tareas/listar-tareas.component';
 import { EditarTareasComponent } from './componentens/tareas/editar-tareas/editar-tareas.component';
+import { AgregarTareasComponent } from './componentens/tareas/agregar-tareas/agregar-tareas.component';
 
 export const routes: Routes = [
-    {path: 'LoginUsuario' ,   component:LoginComponent},
-    {path: 'RegistrarUsuario' ,   component:RegistrarComponent },
-    {path: 'agregarProyecto' ,   component:AgregarProyectoComponent },
-    {path: 'listarProyecto' ,   component:ListarProyectosComponent , canActivate: [AuthGuard]},
-    {path: 'agregarTarea' ,   component:AgregarTareaComponent , canActivate: [AuthGuard]},
-    {path: 'index' ,   component:IndexComponent , canActivate: [AuthGuard]},
-    {path: 'editarProyecto' ,   component:EditarProyectoComponent , canActivate: [AuthGuard]},
-    {path: 'listarTarea' ,   component:ListarTareasComponent , canActivate: [AuthGuard]},
-    {path: 'editarTarea' ,   component:EditarTareasComponent , canActivate: [AuthGuard]}
+    { path: 'LoginUsuario', component: LoginComponent },
+    { path: 'RegistrarUsuario', component: RegistrarComponent },
+    { path: 'agregarProyecto', component: AgregarProyectoComponent },
+    { path: 'listarProyecto', component: ListarProyectosComponent },
+    
+    {path: 'agregarTareas' ,   component:AgregarTareasComponent , canActivate: [AuthGuard]},
+    
+    { path: 'index', component: IndexComponent, canActivate: [AuthGuard] },
+    { path: 'editarProyecto', component: EditarProyectoComponent, canActivate: [AuthGuard] },
+    { path: 'listarTarea', component: ListarTareasComponent, canActivate: [AuthGuard] },
+    { path: 'editarTarea', component: EditarTareasComponent, canActivate: [AuthGuard] }
 
 ];

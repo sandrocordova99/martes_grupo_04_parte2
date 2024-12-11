@@ -8,16 +8,10 @@
 
         <div>
             <label>Contraseña de usuario</label>
-            <input
-                type="password"
-                id="password"
-                name="password"
-                [(ngModel)]="userDTO.password"
-                required=""
-            >
+            <input type="password" id="password" name="password" [(ngModel)]="userDTO.password" required="">
         </div>
 
-        <button type="submit" >logearse</button>
+        <button class="btn btn-primary" type="submit">Logearse</button>
     </form>
 
     <div *ngIf="mensajeError">

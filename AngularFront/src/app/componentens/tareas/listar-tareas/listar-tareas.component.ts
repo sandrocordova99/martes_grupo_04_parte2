@@ -13,9 +13,9 @@ import { TareasService } from '../../../servicio/tareas.service';
   styleUrl: './listar-tareas.component.css'
 })
 export class ListarTareasComponent implements OnInit {
-  
-  
-  
+
+
+
   ngOnInit(): void {
     this.obtenerLista();
   }
@@ -24,36 +24,44 @@ export class ListarTareasComponent implements OnInit {
   tareasLista: TareaResponseDTO[] = [];
 
   constructor(private tareasService: TareasService, private router: Router) {
-      //id del usuario
-      const user = localStorage.getItem("user");
-      this.idUsuario = Number(user);
-      
+    //id del usuario
+    const user = localStorage.getItem("user");
+    this.idUsuario = Number(user);
+
   }
 
 
   obtenerLista(): void {
-        this.tareasService.listarTareas(this.idUsuario).subscribe(
-          data =>{
-            this.tareasLista = data.tarea;
-            console.log("lista: " ,data.tarea);
-          },
-          error => {
-            console.log("error: " ,error);
-          }
-        )
+    this.tareasService.listarTareas(this.idUsuario).subscribe(
+      data => {
+        this.tareasLista = data.tarea;
+        console.log("lista: ", data.tarea);
+      },
+      error => {
+        console.log("error: ", error);
+      }
+    )
   }
 
-  crearTarea(): void{
+  crearTarea(): void {
     this.router.navigate(['/agregarTarea']);
   }
 
-  actualizarTarea(tarea : TareaResponseDTO ): void{
-    const idTarea = localStorage.setItem("idTarea",tarea.id.toString());
+  actualizarTarea(tarea: TareaResponseDTO): void {
+    const idTarea = localStorage.setItem("idTarea", tarea.id.toString());
     this.router.navigate(['/editarTarea']);
   }
 
-  eliminarTarea(tarea : TareaResponseDTO): void{
-    
+  eliminarTarea(tarea: TareaResponseDTO): void {
+    this.tareasService.eliminarTareas(this.idUsuario , tarea.id).subscribe(
+      data => {
+        this.tareasLista = data.tarea;
+        console.log("lista: ", data.tarea);
+      },
+      error => {
+        console.log("error: ", error);
+      }
+    )
   }
 
 
